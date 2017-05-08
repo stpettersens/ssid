@@ -1,2 +1,2 @@
 # ssid
-SSID detection and connect library for Rust
+SSID detection and connect library for Rust.
