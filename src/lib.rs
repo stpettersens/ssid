@@ -13,10 +13,12 @@ impl SSID {
             .arg("show")
             .arg("interfaces")
             .spawn();
+            println!("windows"); // !!!
         } else if cfg!("linux") {
             let output = Command::new("iwconfig")
             .arg("-r")
             .spawn();
+            println!("linux"); // !!!
         }
     }
 }
