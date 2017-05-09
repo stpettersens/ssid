@@ -1,6 +1,6 @@
-#[derive(Debug)]
 use std::process::Command;
 
+#[derive(Debug)]
 pub struct SSID {
     id: String,
     status: String,
