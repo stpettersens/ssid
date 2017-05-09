@@ -1,3 +1,4 @@
+#[derive(Debug)]
 use std::process::Command;
 
 pub struct SSID {
@@ -33,5 +34,6 @@ impl SSID {
 #[test]
 fn test_new_query() {
     let ssid = SSID::new_query();
+    println!("{:?}", ssid);
     //assert_eq!(true, true); /// !!!
 }
