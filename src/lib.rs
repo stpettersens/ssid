@@ -14,7 +14,7 @@ impl SSID {
             .arg("interfaces")
             .spawn();
             println!("windows"); // !!!
-        } else if cfg!("linux") {
+        } else if cfg!(target_os = "linux") {
             let output = Command::new("iwconfig")
             .arg("-r")
             .spawn();
