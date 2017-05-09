@@ -7,7 +7,7 @@ pub struct SSID {
 
 impl SSID {
     pub fn new_query() {
-        if cfg!("windows") {
+        if cfg!(target_os = "windows") {
             let output = Command::new("netsh")
             .arg("wlan")
             .arg("show")
