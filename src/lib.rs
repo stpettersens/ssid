@@ -15,16 +15,16 @@ impl SSID {
             .arg("interfaces")
             .spawn();
             return SSID {
-                id: "windows",
-                status: "connected",
+                id: "windows".to_owned(),
+                status: "connected".to_owned(),
             }
         } else if cfg!(target_os = "linux") {
             let output = Command::new("iwconfig")
             .arg("-r")
             .spawn();
             return SSID {
-                id: "linux",
-                status: "connected",
+                id: "linux".to_owned(),
+                status: "connected".to_owned(),
             }
         }
     }
