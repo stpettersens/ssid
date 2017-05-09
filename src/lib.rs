@@ -12,13 +12,13 @@ pub struct SSID {
 
 impl SSID {
     pub fn new_query() {
-        if get_os() == "Windows" {
+        if cfg!("windows") {
             let output = Command::new("netsh")
             .arg("wlan")
             .arg("show")
             .arg("interfaces")
             .spawn();
-        } else {
+        } else if cfg!("linux") {
             let output = Command::new("iwconfig")
             .arg("-r")
             .spawn();
