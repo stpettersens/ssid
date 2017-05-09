@@ -8,24 +8,23 @@ pub struct SSID {
 
 impl SSID {
     pub fn new_query() -> SSID {
+        let mut os;
         if cfg!(target_os = "windows") {
             let output = Command::new("netsh")
             .arg("wlan")
             .arg("show")
             .arg("interfaces")
             .spawn();
-            return SSID {
-                id: "windows".to_owned(),
-                status: "connected".to_owned(),
-            }
+            os = "windows".to_owned();
         } else if cfg!(target_os = "linux") {
             let output = Command::new("iwconfig")
             .arg("-r")
             .spawn();
-            return SSID {
-                id: "linux".to_owned(),
-                status: "connected".to_owned(),
-            }
+            os = "linux".to_owned();
+        }
+        SSID {
+            id: os,
+            status: "connected".to_owned(),
         }
     }
 }
