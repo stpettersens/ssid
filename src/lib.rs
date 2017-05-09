@@ -1,9 +1,4 @@
-extern crate os_type;
 use std::process::Command;
-
-fn get_os() -> String {
-    format!("{:?}", os_type::current_platform())
-}
 
 pub struct SSID {
     id: String,
