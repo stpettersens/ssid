@@ -6,19 +6,25 @@ pub struct SSID {
 }
 
 impl SSID {
-    pub fn new_query() {
+    pub fn new_query() -> SSID {
         if cfg!(target_os = "windows") {
             let output = Command::new("netsh")
             .arg("wlan")
             .arg("show")
             .arg("interfaces")
             .spawn();
-            println!("windows"); // !!!
+            return SSID {
+                id: "windows",
+                status: "connected",
+            }
         } else if cfg!(target_os = "linux") {
             let output = Command::new("iwconfig")
             .arg("-r")
             .spawn();
-            println!("linux"); // !!!
+            return SSID {
+                id: "linux",
+                status: "connected",
+            }
         }
     }
 }
