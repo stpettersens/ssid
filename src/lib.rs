@@ -14,12 +14,15 @@ impl SSID {
             .arg("wlan")
             .arg("show")
             .arg("interfaces")
-            .spawn();
+            .output()
+            .expect("failed to execute process");
             os = "windows".to_owned();
+            println!("stdout:\n{}", String::from_utf8_lossy(&output.stdout));
         } else if cfg!(target_os = "linux") {
             let output = Command::new("iwconfig")
             .arg("-r")
-            .spawn();
+            .output()
+            .expect("failed to execute process");
             os = "linux".to_owned();
         }
         SSID {
