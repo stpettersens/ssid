@@ -18,11 +18,12 @@ impl SSID {
             .arg("interfaces")
             .output()
             .expect("failed to execute process");
-            let p = Regex::new(r"SSID : ([A-zaz0-9-_]+)$").unwrap();
-            for cap in p.captures_iter(&String::from_utf8_lossy(&output.stdout)) {
+            let p = Regex::new(r"SSID\s*:\s*([A-z0-9]+)").unwrap();
+            let o = String::from_utf8_lossy(&output.stdout);
+            for cap in p.captures_iter(&o) {
                 id = cap[1].to_owned();
+                break;
             }
-            //println!("stdout:\n{}", String::from_utf8_lossy(&output.stdout));
         } else if cfg!(target_os = "linux") {
             let output = Command::new("iwconfig")
             .arg("-r")
