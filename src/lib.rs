@@ -84,7 +84,7 @@ impl SSID {
             .arg(&self.interface)
             .output()
             .expect("failed to execute process");
-            println!("{}", output.stdout);
+            println!("{:?}", output.stdout);
         }
     }
 }
