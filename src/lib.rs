@@ -91,7 +91,7 @@ impl SSID {
             .arg(&self.interface)
             .output()
             .expect("failed to execute process");
-            println!("{}", String::from_utf8_lossy(&output.stdout));
+            //println!("{}", String::from_utf8_lossy(&output.stdout));
         }
     }
 
@@ -103,7 +103,7 @@ impl SSID {
             .arg(&self.interface)
             .output()
             .expect("failed to execute process");
-            println!("{}", String::from_utf8_lossy(&output.stdout));
+            //println!("{}", String::from_utf8_lossy(&output.stdout));
         }
     }
 }
