@@ -26,7 +26,7 @@ impl SSID {
                 break;
             }
             p = Regex::new(r"State\s*:\s*([a-z]+)").unwrap();
-            for cap in p.capture_iter(&o) {
+            for cap in p.captures_iter(&o) {
                 state = cap[1].to_owned();
             }
         } else if cfg!(target_os = "linux") {
