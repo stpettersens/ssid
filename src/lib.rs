@@ -7,6 +7,7 @@ pub struct SSID {
     id: String,
     state: String,
     profile: String,
+    interface: String,
 }
 
 impl SSID {
@@ -14,6 +15,7 @@ impl SSID {
         let mut id = String::new();
         let mut state = String::new();
         let mut profile = String::new();
+        let mut interface = String::new();
         if cfg!(target_os = "windows") {
             let output = Command::new("netsh")
             .arg("wlan")
@@ -35,6 +37,10 @@ impl SSID {
             for cap in p.captures_iter(&o) {
                 profile = cap[1].to_owned();
             }
+            p = Regex::new(r"Name\s*:\s*([A-z0-9_-]+)").unwrap();
+            for cap in p.captures_iter(&o) {
+                interface = cap[1].to_owned();
+            }
         } else if cfg!(target_os = "linux") {
             let output = Command::new("iwconfig")
             .arg("-r")
@@ -48,6 +54,7 @@ impl SSID {
             id: id,
             state: state,
             profile: profile,
+            interface: interface,
         }
     }
 
@@ -58,11 +65,19 @@ impl SSID {
     pub fn get_state(&self) -> String {
         format!("{}", self.state)
     }
+
+    pub fn get_profile(&self) -> String {
+        format!("{}", self.profile)
+    }
+
+    pub fn get_interface(&self) -> String {
+        format!("{}", self.interface)
+    }
 }
 
 #[cfg(test)]
 #[test]
 fn test_new_query() {
     let ssid = SSID::new_query();
-    println!("{:?}", ssid);
+    println!("{:#?}", ssid);
 }
