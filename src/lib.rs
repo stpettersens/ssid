@@ -42,7 +42,7 @@ impl SSID {
             .arg("show")
             .arg("profiles")
             .output()
-            .expect("failed to execute process")
+            .expect("failed to execute process");
             p = Regex::new(r"Profile\s*:\s*([A-z0-9_-]+)").unwrap();
             let o = String::from_utf8_lossy(&output.stdout);
             for cap in p.captures_iter(&o) {
