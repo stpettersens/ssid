@@ -31,7 +31,7 @@ impl SSID {
             for cap in p.captures_iter(&o) {
                 state = cap[1].to_owned();
             }
-            p = Regex::new(r"Name\s*:\s*([A-z0-9_-]+)").unwrap();
+            p = Regex::new(r"Profile\s*:\s*([A-z0-9_-]+)").unwrap();
             for cap in p.captures_iter(&o) {
                 profile = cap[1].to_owned();
             }
