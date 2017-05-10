@@ -9,7 +9,7 @@ pub struct SSID {
 }
 
 impl SSID {
-    pub fn new_query() -> SSID {
+    pub fn new() -> SSID {
         let mut id = String::new();
         let mut state = String::new();
         if cfg!(target_os = "windows") {
