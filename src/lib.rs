@@ -28,7 +28,7 @@ impl SSID {
             .arg("-r")
             .output()
             .expect("failed to execute process");
-            id = "unimplemented";
+            id = "unimplemented".to_owned();
         }
         SSID {
             id: id,
