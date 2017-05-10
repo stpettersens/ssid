@@ -42,6 +42,14 @@ impl SSID {
             state: state,
         }
     }
+
+    pub fn get_id(&self) -> String {
+        format!("{}", self.id)
+    }
+
+    pub fn get_state(&self) -> String {
+        format!("{}", self.state)
+    }
 }
 
 #[cfg(test)]
@@ -49,5 +57,4 @@ impl SSID {
 fn test_new_query() {
     let ssid = SSID::new_query();
     println!("{:?}", ssid);
-    //assert_eq!(true, true); /// !!!
 }
