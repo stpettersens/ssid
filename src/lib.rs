@@ -56,6 +56,7 @@ impl SSID {
             id = "unimplemented".to_owned();
             state = "unimplemented".to_owned();
             profile = "unimplemented".to_owned();
+            interface = "unimplemented".to_owned();
         }
         SSID {
             id: id,
