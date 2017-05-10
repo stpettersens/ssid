@@ -10,7 +10,7 @@ pub struct SSID {
 
 impl SSID {
     pub fn new_query() -> SSID {
-        let mut os = String::new();
+        let mut id = String::new();
         if cfg!(target_os = "windows") {
             let output = Command::new("netsh")
             .arg("wlan")
@@ -20,7 +20,10 @@ impl SSID {
             .expect("failed to execute process");
             os = "windows".to_owned();
             let p = Regex::new(r"SSID : ([A-zaz0-9-_]+)$").unwrap();
-            println!("stdout:\n{}", String::from_utf8_lossy(&output.stdout));
+            for cap in p.captures_iter(&String::from_utf8_lossy(&output.stdout)) {
+                id = &cap.at(1).unwrap();
+            }
+            //println!("stdout:\n{}", String::from_utf8_lossy(&output.stdout));
         } else if cfg!(target_os = "linux") {
             let output = Command::new("iwconfig")
             .arg("-r")
@@ -29,7 +32,7 @@ impl SSID {
             os = "linux".to_owned();
         }
         SSID {
-            id: os,
+            id: id,
             status: "connected".to_owned(),
         }
     }
