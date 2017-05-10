@@ -18,7 +18,6 @@ impl SSID {
             .arg("interfaces")
             .output()
             .expect("failed to execute process");
-            os = "windows".to_owned();
             let p = Regex::new(r"SSID : ([A-zaz0-9-_]+)$").unwrap();
             for cap in p.captures_iter(&String::from_utf8_lossy(&output.stdout)) {
                 id = &cap.at(1).unwrap();
@@ -29,7 +28,7 @@ impl SSID {
             .arg("-r")
             .output()
             .expect("failed to execute process");
-            os = "linux".to_owned();
+            id = "unimplemented";
         }
         SSID {
             id: id,
