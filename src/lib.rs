@@ -1,3 +1,5 @@
+extern crate regex;
+use regex::Regex;
 use std::process::Command;
 
 #[derive(Debug)]
@@ -17,6 +19,7 @@ impl SSID {
             .output()
             .expect("failed to execute process");
             os = "windows".to_owned();
+            let p = Regex::new(r"SSID : ([A-zaz0-9-_]+)$").unwrap();
             println!("stdout:\n{}", String::from_utf8_lossy(&output.stdout));
         } else if cfg!(target_os = "linux") {
             let output = Command::new("iwconfig")
