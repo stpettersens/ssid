@@ -33,13 +33,20 @@ impl SSID {
             for cap in p.captures_iter(&o) {
                 state = cap[1].to_owned();
             }
-            p = Regex::new(r"Profile\s*:\s*([A-z0-9_-]+)").unwrap();
-            for cap in p.captures_iter(&o) {
-                profile = cap[1].to_owned();
-            }
             p = Regex::new(r"Name\s*:\s*([A-z0-9_-]+)").unwrap();
             for cap in p.captures_iter(&o) {
                 interface = cap[1].to_owned();
+            }
+            let output = Command::new("netsh")
+            .arg("wlan")
+            .arg("show")
+            .arg("profiles")
+            .output()
+            .expect("failed to execute process")
+            p = Regex::new(r"Profile\s*:\s*([A-z0-9_-]+)").unwrap();
+            let o = String::from_utf8_lossy(&output.stdout);
+            for cap in p.captures_iter(&o) {
+                profile = cap[1].to_owned();
             }
         } else if cfg!(target_os = "linux") {
             let output = Command::new("iwconfig")
