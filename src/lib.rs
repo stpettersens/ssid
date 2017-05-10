@@ -87,6 +87,18 @@ impl SSID {
             println!("{}", String::from_utf8_lossy(&output.stdout));
         }
     }
+
+    pub fn disconnect(&self) {
+        if cfg!(target_os = "windows") {
+            let output = Command::new("netsh")
+            .arg("wlan")
+            .arg("disconnect")
+            .arg(&self.interface)
+            .output()
+            .expect("failed to execute process");
+            println!("{}", String::from_utf8_lossy(&output.stdout));
+        }
+    }
 }
 
 #[cfg(test)]
