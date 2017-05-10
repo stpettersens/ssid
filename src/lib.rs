@@ -20,7 +20,7 @@ impl SSID {
             .expect("failed to execute process");
             let p = Regex::new(r"SSID : ([A-zaz0-9-_]+)$").unwrap();
             for cap in p.captures_iter(&String::from_utf8_lossy(&output.stdout)) {
-                id = &cap.at(1).unwrap();
+                id = cap[1].to_owned();
             }
             //println!("stdout:\n{}", String::from_utf8_lossy(&output.stdout));
         } else if cfg!(target_os = "linux") {
