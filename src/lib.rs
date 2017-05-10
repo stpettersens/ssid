@@ -73,11 +73,25 @@ impl SSID {
     pub fn get_interface(&self) -> String {
         format!("{}", self.interface)
     }
+
+    pub fn connect(&self, ssid: &str) {
+        if cfg!(target_os = "windows") {
+            let output = Command::new("netsh")
+            .arg("wlan")
+            .arg("connect")
+            .arg(&self.profile)
+            .arg(ssid)
+            .arg(&self.interface)
+            .output()
+            .expect("failed to execute process");
+            println!("{:?}", output);
+        }
+    }
 }
 
 #[cfg(test)]
 #[test]
 fn test_new_query() {
-    let ssid = SSID::new_query();
+    let ssid = SSID::new();
     println!("{:#?}", ssid);
 }
