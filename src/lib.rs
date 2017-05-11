@@ -18,8 +18,8 @@ impl SSID {
         let mut profile = String::new();
         let mut interface = String::new();
         let mut netsh = "netsh";
-        let ci = "CI";
-        match env::var(ci) {
+        let key = "CI";
+        match env::var(key) {
             Ok(val) => println!("{}: {:?}", key, val),
             Err(e) => println!("No CI variable!"),
         }
