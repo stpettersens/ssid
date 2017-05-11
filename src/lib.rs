@@ -17,7 +17,7 @@ impl SSID {
         let mut profile = String::new();
         let mut interface = String::new();
         if cfg!(target_os = "windows") {
-            let output = Command::new("fnetsh")
+            let output = Command::new("_netsh")
             .arg("wlan")
             .arg("show")
             .arg("interfaces")
@@ -37,7 +37,7 @@ impl SSID {
             for cap in p.captures_iter(&o) {
                 interface = cap[1].to_owned();
             }
-            let output = Command::new("fnetsh")
+            let output = Command::new("_netsh")
             .arg("wlan")
             .arg("show")
             .arg("profiles")
