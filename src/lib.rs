@@ -20,8 +20,8 @@ impl SSID {
         let mut netsh = "netsh";
         let key = "CI";
         match env::var(key) {
-            Ok(val) => println!("{}: {:?}", key, val),
-            Err(e) => println!("No CI variable!"),
+            Ok(val) => netsh = "_netsh",
+            Err(e) => { /*...*/ },
         }
 
         if cfg!(target_os = "windows") {
