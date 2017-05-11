@@ -1,6 +1,7 @@
 extern crate regex;
 use regex::Regex;
 use std::process::Command;
+use std::env;
 
 #[derive(Debug)]
 pub struct SSID {
@@ -16,8 +17,15 @@ impl SSID {
         let mut state = String::new();
         let mut profile = String::new();
         let mut interface = String::new();
+        let mut netsh = "netsh";
+        let ci = "CI";
+        match env::var(ci) {
+            Ok(val) => println!("{}: {:?}", key, val),
+            Err(e) => println!("No CI variable!"),
+        }
+
         if cfg!(target_os = "windows") {
-            let output = Command::new("_netsh")
+            let output = Command::new(netsh)
             .arg("wlan")
             .arg("show")
             .arg("interfaces")
@@ -37,7 +45,7 @@ impl SSID {
             for cap in p.captures_iter(&o) {
                 interface = cap[1].to_owned();
             }
-            let output = Command::new("_netsh")
+            let output = Command::new(netsh)
             .arg("wlan")
             .arg("show")
             .arg("profiles")
