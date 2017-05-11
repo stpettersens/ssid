@@ -19,12 +19,16 @@ impl SSID {
         let mut interface = String::new();
         let mut netsh = "netsh";
         let key = "CI";
+        let mut ci = false;
         match env::var(key) {
-            Ok(val) => netsh = "_netsh",
+            Ok(val) => {
+                netsh = "_netsh";
+                ci = true;
+            },
             Err(e) => { /*...*/ },
         }
 
-        if cfg!(target_os = "windows") {
+        if cfg!(target_os = "windows") || ci {
             let output = Command::new(netsh)
             .arg("wlan")
             .arg("show")
