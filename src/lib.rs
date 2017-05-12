@@ -99,6 +99,14 @@ impl SSID {
         format!("{}", self.interface)
     }
 
+    pub fn is_connected_to(&self, ssid: &str) -> bool {
+        let mut connected = false;
+        if self.id == ssid && self.state == "connected" {
+            connected = true;
+        }
+        connected
+    }
+
     pub fn connect(&self, ssid: &str) {
         let (netsh, ci) = set_for_ci();
         if cfg!(target_os = "windows") || ci {
