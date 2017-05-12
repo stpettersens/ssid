@@ -22,7 +22,7 @@ fn set_for_ci() -> (String, bool) {
         },
         Err(e) => { /* ... */ },
     }
-    (netsh, ci)
+    (netsh.to_owned(), ci)
 }
 
 impl SSID {
