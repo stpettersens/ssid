@@ -34,7 +34,7 @@ impl SSID {
         let (netsh, ci) = set_for_ci();
 
         if cfg!(target_os = "windows") || ci {
-            let output = Command::new(netsh)
+            let output = Command::new(netsh.clone())
             .arg("wlan")
             .arg("show")
             .arg("interfaces")
@@ -54,7 +54,7 @@ impl SSID {
             for cap in p.captures_iter(&o) {
                 interface = cap[1].to_owned();
             }
-            let output = Command::new(netsh)
+            let output = Command::new(netsh.clone())
             .arg("wlan")
             .arg("show")
             .arg("profiles")
