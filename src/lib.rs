@@ -100,8 +100,9 @@ impl SSID {
     }
 
     pub fn connect(&self, ssid: &str) {
-        if cfg!(target_os = "windows") {
-            let output = Command::new("netsh")
+        let (netsh, ci) = set_for_ci();
+        if cfg!(target_os = "windows") || ci {
+            let output = Command::new(netsh.clone())
             .arg("wlan")
             .arg("connect")
             .arg(&self.profile)
@@ -114,8 +115,9 @@ impl SSID {
     }
 
     pub fn disconnect(&self) {
-        if cfg!(target_os = "windows") {
-            let output = Command::new("netsh")
+        let (netsh, ci) = set_for_ci();
+        if cfg!(target_os = "windows") || ci {
+            let output = Command::new(netsh.clone())
             .arg("wlan")
             .arg("disconnect")
             .arg(&self.interface)
