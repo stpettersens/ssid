@@ -11,22 +11,27 @@ pub struct SSID {
     interface: String,
 }
 
+fn set_for_ci() -> (String, bool) {
+    let key = "CI";
+    let mut netsh = "netsh";
+    let mut ci = false;
+    match env::var(key) {
+        Ok(val) => {
+            netsh = "_netsh";
+            ci = true;
+        },
+        Err(e) => { /* ... */ },
+    }
+    (netsh, ci)
+}
+
 impl SSID {
     pub fn new() -> SSID {
         let mut id = String::new();
         let mut state = String::new();
         let mut profile = String::new();
         let mut interface = String::new();
-        let mut netsh = "netsh";
-        let key = "CI";
-        let mut ci = false;
-        match env::var(key) {
-            Ok(val) => {
-                netsh = "_netsh";
-                ci = true;
-            },
-            Err(e) => { /*...*/ },
-        }
+        let (netsh, ci) = set_for_ci();
 
         if cfg!(target_os = "windows") || ci {
             let output = Command::new(netsh)
