@@ -2,3 +2,9 @@ notifications:
   email: false
 
 language: rust
+
+before_script:
+  - git clone git://github.com/stpettersens/netsh.git
+  - cd netsh
+  - cargo build --release
+  - cd ..
