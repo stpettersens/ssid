@@ -98,6 +98,14 @@ impl SSID {
     pub fn get_interface(&self) -> String {
         format!("{}", self.interface)
     }
+    
+    pub fn is_connected(&self) -> bool {
+        let mut connected = false;
+        if self.state == "connected" {
+            connected = true;
+        }
+        connected
+    }
 
     pub fn is_connected_to(&self, ssid: &str) -> bool {
         let mut connected = false;
